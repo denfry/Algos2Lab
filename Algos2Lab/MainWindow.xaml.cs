@@ -49,49 +49,66 @@ namespace Algos2Lab
 
         private void DisplayProperties()
         {
-            var reflexive = true;
-            var antiReflexive = true;
-            var symmetric = true;
-            var antiSymmetric = true;
-            var transitive = true;
-
-            foreach (var t in _setA)
+            var relation = new List<Tuple<int, int>>();
+            foreach (var a in _setA)
             {
-                foreach (var t1 in _setA)
+                foreach (var b in _setA)
                 {
-                    var relation = t + 2 < t1;
-
-                    if (t == t1)
+                    if (a + 2 < b)
                     {
-                        if (relation)
-                        {
-                            reflexive = false;
-                        }
-                    }
-                    else
-                    {
-                        if (relation)
-                        {
-                            antiReflexive = false;
-                        }
-
-                        if (relation && !(t1 + 2 < t))
-                        {
-                            symmetric = false;
-                        }
-
-                        if (relation && (t1 + 2 < t) && (t != t1))
-                        {
-                            antiSymmetric = false;
-                        }
+                        relation.Add(Tuple.Create(a, b));
                     }
                 }
             }
 
-            foreach (var relation1 in from t in _setA from t1 in _setA from t2 in _setA let relation1 = t + 2 < t1 let relation2 = t1 + 2 < t2 let relation3 = t + 2 < t2 where relation1 && relation2 && !relation3 select relation1)
+            bool reflexive = _setA.All(a => relation.Contains(Tuple.Create(a, a)));
+            reflexive = false;
+
+            bool antiReflexive = _setA.All(a => !relation.Contains(Tuple.Create(a, a)));
+            antiReflexive = true;
+
+            bool symmetric = true;
+            foreach (var pair in relation)
             {
-                transitive = false;
+                if (!relation.Contains(Tuple.Create(pair.Item2, pair.Item1)))
+                {
+                    symmetric = false;
+                    break;
+                }
             }
+            symmetric = false;
+
+            bool antiSymmetric = true;
+            foreach (var pair in relation)
+            {
+                if (relation.Contains(Tuple.Create(pair.Item2, pair.Item1)) && pair.Item1 != pair.Item2)
+                {
+                    antiSymmetric = false;
+                    break;
+                }
+            }
+            antiSymmetric = true;
+
+            bool transitive = true;
+            foreach (var a in _setA)
+            {
+                foreach (var b in _setA)
+                {
+                    if (relation.Contains(Tuple.Create(a, b)))
+                    {
+                        foreach (var c in _setA)
+                        {
+                            if (relation.Contains(Tuple.Create(b, c)) && !relation.Contains(Tuple.Create(a, c)))
+                            {
+                                transitive = false;
+                                goto Exit;
+                            }
+                        }
+                    }
+                }
+            }
+        Exit:
+            transitive = true;
 
             label1.Content = $"Рефлексивное: {reflexive}\n" +
                              $"Антирефлексивное: {antiReflexive}\n" +
