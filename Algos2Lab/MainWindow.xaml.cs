@@ -24,16 +24,23 @@ namespace Algos2Lab
         {
             var data = new ObservableCollection<RelationRow>();
 
-            foreach (var row in _setA.Select(b => new RelationRow
-                     {
-                         B = b,
-                         A0 = (0 + 2 < b) ? $"({0}, {b})" : "",
-                         A1 = (1 + 2 < b) ? $"({1}, {b})" : "",
-                         A3 = (3 + 2 < b) ? $"({3}, {b})" : "",
-                         A4 = (4 + 2 < b) ? $"({4}, {b})" : "",
-                         A5 = (5 + 2 < b) ? $"({5}, {b})" : ""
-                     }))
+            foreach (var b in _setA)
             {
+                var row = new RelationRow
+                {
+                    B = b,
+                    A0 = $"({0}, {b})",
+                    A0Highlight = (0 + 2 < b),
+                    A1 = $"({1}, {b})",
+                    A1Highlight = (1 + 2 < b),
+                    A3 = $"({3}, {b})",
+                    A3Highlight = (3 + 2 < b),
+                    A4 = $"({4}, {b})",
+                    A4Highlight = (4 + 2 < b),
+                    A5 = $"({5}, {b})",
+                    A5Highlight = (5 + 2 < b)
+                };
+
                 data.Add(row);
             }
 
@@ -97,21 +104,25 @@ namespace Algos2Lab
         {
             public int B { get; set; }
             public string A0 { get; set; }
+            public bool A0Highlight { get; set; }
             public string A1 { get; set; }
+            public bool A1Highlight { get; set; }
             public string A3 { get; set; }
+            public bool A3Highlight { get; set; }
             public string A4 { get; set; }
+            public bool A4Highlight { get; set; }
             public string A5 { get; set; }
+            public bool A5Highlight { get; set; }
         }
     }
     public class BackgroundConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string content && !string.IsNullOrEmpty(content))
+            if (value is bool isHighlighted)
             {
-                return Brushes.LightGreen;
+                return isHighlighted ? Brushes.LightGreen : Brushes.White;
             }
-
             return Brushes.White;
         }
 

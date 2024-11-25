@@ -7,41 +7,61 @@
         <local:BackgroundConverter x:Key="BackgroundConverter"/>
     </Window.Resources>
     <Grid>
-        <DataGrid Name="RelationDataGrid" AutoGenerateColumns="False" Margin="10">
+        <DataGrid x:Name="RelationDataGrid" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="A\B" Binding="{Binding B}" Width="*"/>
                 <DataGridTextColumn Header="0" Binding="{Binding A0}" Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding A0, Converter={StaticResource BackgroundConverter}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding A0Highlight}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="1" Binding="{Binding A1}" Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding A1, Converter={StaticResource BackgroundConverter}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding A1Highlight}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="3" Binding="{Binding A3}" Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding A3, Converter={StaticResource BackgroundConverter}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding A3Highlight}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="4" Binding="{Binding A4}" Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding A4, Converter={StaticResource BackgroundConverter}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding A4Highlight}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="5" Binding="{Binding A5}" Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
-                            <Setter Property="Background" Value="{Binding A5, Converter={StaticResource BackgroundConverter}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding A5Highlight}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
